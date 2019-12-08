@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HearthCards</string>
+    <string name="card_name">Card Name</string>
+    <string name="classe">Classe</string>
+    <string name="artist">Artist</string>
+    <string name="flavor_text">Flavor Text</string>
+    <string name="card_thumbnail">Card Thumbnail</string>
+    <string name="full_card">Full Card</string>
 </resources>
