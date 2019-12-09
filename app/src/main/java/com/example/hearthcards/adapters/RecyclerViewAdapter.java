@@ -99,9 +99,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public void filterList(ArrayList<Cards> filteredList){
-        mData = filteredList;
-        notifyDataSetChanged();
-    }
-
 }

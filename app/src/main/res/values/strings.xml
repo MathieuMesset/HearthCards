@@ -6,4 +6,5 @@
     <string name="flavor_text">Flavor Text</string>
     <string name="card_thumbnail">Card Thumbnail</string>
     <string name="full_card">Full Card</string>
+    <string name="search">Search</string>
 </resources>
