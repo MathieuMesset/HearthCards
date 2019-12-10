@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         jsonrequest();
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
 
