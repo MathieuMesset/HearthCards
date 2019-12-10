@@ -10,4 +10,5 @@
     <color name="Transparent">#00000000</color>
     <color name="TransparentWhite">#E6FFFFFF</color>
     <color name="colorPrimaryTransparent">#66462E06</color>
+    <color name="CardRowBackground">#E6CABAA7</color>
 </resources>
