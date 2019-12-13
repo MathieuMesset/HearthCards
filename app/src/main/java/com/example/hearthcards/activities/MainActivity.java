@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.hearthcards.R;
 import com.example.hearthcards.adapters.RecyclerViewAdapter;
 import com.example.hearthcards.model.Cards;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final String JSON_URL = "https://api.hearthstonejson.com/v1/latest/frFR/cards.collectible.json";
     private JsonArrayRequest request;
@@ -49,31 +52,48 @@ public class MainActivity extends AppCompatActivity {
     private List<Cards> listCards;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
+    private String filter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        filter = "NO_FILTER";
+
         listCards = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view_id);
         jsonrequest();
+
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
         drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
     }
 
-    private void filter(String text) {
+    private void filter(String text, String classe_filter) {
         ArrayList<Cards> filteredList = new ArrayList<>();
 
         for (Cards card : listCards) {
-            if (card.getName().toLowerCase().contains(text.toLowerCase()) || card.getClasse().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(card);
+            if (card.getName().toLowerCase().contains(text.toLowerCase())) {  //|| card.getClasse().toLowerCase().contains(text.toLowerCase()
+
+                if (classe_filter.contains("NO_FILTER")) {
+                    filteredList.add(card);
+                } else if (card.getClasse().contains(classe_filter)) {
+                    filteredList.add(card);
+                }
             }
         }
         setuprecyclerview(filteredList);
@@ -209,10 +229,64 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filter(newText);
+                filter(newText, filter);
                 return false;
             }
         });
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        String newFilter;
+        switch (menuItem.getItemId()) {
+
+            case R.id.druid_filter:
+                newFilter = "DRUID";
+                break;
+            case R.id.hunter_filter:
+                newFilter = "HUNTER";
+                break;
+            case R.id.mage_filter:
+                newFilter = "MAGE";
+                break;
+            case R.id.paladin_filter:
+                newFilter = "PALADIN";
+                break;
+            case R.id.priest_filter:
+                newFilter = "PRIEST";
+                break;
+            case R.id.rogue_filter:
+                newFilter = "ROGUE";
+                break;
+            case R.id.shaman_filter:
+                newFilter = "SHAMAN";
+                break;
+            case R.id.warlock_filter:
+                newFilter = "WARLOCK";
+                break;
+            case R.id.warrior_filter:
+                newFilter = "WARRIOR";
+                break;
+            case R.id.neutral_filter:
+                newFilter = "NEUTRAL";
+                break;
+            default:
+                newFilter = "NO_FILTER";
+                break;
+
+        }
+
+        if (filter.contains(newFilter)) {
+            filter = "NO_FILTER";
+            menuItem.setChecked(false);
+        } else {
+            filter = newFilter;
+            menuItem.setChecked(true);
+        }
+        filter("", filter);
 
         return true;
     }
