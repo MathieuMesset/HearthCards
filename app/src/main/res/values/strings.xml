@@ -7,4 +7,14 @@
     <string name="card_thumbnail">Card Thumbnail</string>
     <string name="full_card">Full Card</string>
     <string name="search">Search</string>
+    <string name="druid">Druide</string>
+    <string name="mage">Mage</string>
+    <string name="hunter">Chasseur</string>
+    <string name="paladin">Paladin</string>
+    <string name="priest">Prêtre</string>
+    <string name="rogue">Voleur</string>
+    <string name="shaman">Chaman</string>
+    <string name="warlock">Démoniste</string>
+    <string name="warrior">Guerrier</string>
+    <string name="neutral">Neutre</string>
 </resources>

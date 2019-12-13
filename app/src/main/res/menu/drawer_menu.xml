@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/druid_filter"
+            android:icon="@drawable/druid_icon"
+            android:title="@string/druid" />
+        <item
+            android:id="@+id/hunter_filter"
+            android:icon="@drawable/hunter_icon"
+            android:title="@string/hunter" />
+        <item
+            android:id="@+id/mage_filter"
+            android:icon="@drawable/mage_icon"
+            android:title="@string/mage" />
+        <item
+            android:id="@+id/paladin_filter"
+            android:icon="@drawable/paladin_icon"
+            android:title="@string/paladin" />
+        <item
+            android:id="@+id/priest_filter"
+            android:icon="@drawable/priest_icon"
+            android:title="@string/priest" />
+        <item
+            android:id="@+id/rogue_filter"
+            android:icon="@drawable/rogue_icon"
+            android:title="@string/rogue" />
+        <item
+            android:id="@+id/shaman_filter"
+            android:icon="@drawable/shaman_icon"
+            android:title="@string/shaman" />
+        <item
+            android:id="@+id/warlock_filter"
+            android:icon="@drawable/warlock_icon"
+            android:title="@string/warlock" />
+        <item
+            android:id="@+id/warrior_filter"
+            android:icon="@drawable/warrior_icon"
+            android:title="@string/warrior" />
+        <item
+            android:id="@+id/neutral_filter"
+            android:icon="@drawable/neutral_icon"
+            android:title="@string/neutral" />
+
+    </group>
+
+
+</menu>
