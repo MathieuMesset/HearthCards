@@ -1,14 +1,15 @@
 package com.example.hearthcards.activities;
 
 import android.os.Bundle;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.hearthcards.R;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.r0adkll.slidr.Slidr;
 
 public class CardActivity extends AppCompatActivity {

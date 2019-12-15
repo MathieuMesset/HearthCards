@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-
     }
 
     private void jsonrequest() {
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                 }
-                FragmentMain mFragment = (FragmentMain) viewPager.getAdapter().instantiateItem(viewPager,viewPager.getCurrentItem()) ;
+                FragmentMain mFragment = (FragmentMain) viewPager.getAdapter().instantiateItem(viewPager, viewPager.getCurrentItem());
                 mFragment.setuprecyclerview(listCards);
 
             }
@@ -187,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     private void filter(String text, String classe_filter) {
         ArrayList<Cards> filteredList = new ArrayList<>();
 
@@ -201,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         }
-        FragmentMain mFragment = (FragmentMain) viewPager.getAdapter().instantiateItem(viewPager,viewPager.getCurrentItem()) ;
+        FragmentMain mFragment = (FragmentMain) viewPager.getAdapter().instantiateItem(viewPager, viewPager.getCurrentItem());
         mFragment.setuprecyclerview(filteredList);
     }
 

@@ -11,25 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Cache;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.hearthcards.R;
 import com.example.hearthcards.adapters.RecyclerViewAdapter;
 import com.example.hearthcards.model.Cards;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMain extends Fragment {
@@ -50,12 +35,6 @@ public class FragmentMain extends Fragment {
 
         return view;
     }
-
-
-
-
-
-
 
 
     public void setuprecyclerview(List<Cards> listCards) {

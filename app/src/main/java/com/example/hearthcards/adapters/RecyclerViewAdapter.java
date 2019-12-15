@@ -2,12 +2,6 @@ package com.example.hearthcards.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.graphics.drawable.Icon;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.hearthcards.R;
 import com.example.hearthcards.activities.CardActivity;
-import com.example.hearthcards.activities.MainActivity;
 import com.example.hearthcards.model.Cards;
 
 import java.util.List;
