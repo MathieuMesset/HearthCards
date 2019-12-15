@@ -3,18 +3,6 @@ package com.example.hearthcards.activities;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,44 +11,30 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.android.volley.Cache;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.hearthcards.R;
-import com.example.hearthcards.adapters.RecyclerViewAdapter;
 import com.example.hearthcards.adapters.ViewPagerAdapter;
-import com.example.hearthcards.model.Cards;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final String JSON_URL = "https://api.hearthstonejson.com/v1/latest/frFR/cards.collectible.json";
-    private JsonArrayRequest request;
-    private RequestQueue requestQueue;
-    private List<Cards> listCards;
-    private RecyclerView recyclerView;
+
     private DrawerLayout drawer;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private String filter;
+    private FragmentMain mFragment;
 
 
     @Override
@@ -71,18 +45,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         filter = "NO_FILTER";
 
-        listCards = new ArrayList<>();
-        recyclerView = findViewById(R.id.recycler_view_id);
-        jsonrequest();
+        mFragment = (FragmentMain) getSupportFragmentManager().findFragmentByTag("Main");
 
         tabLayout = findViewById(R.id.tabLayout_id);
         viewPager = findViewById(R.id.viewPager_id);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.AddFragment(new FragmentMain(),"Main");
-        viewPagerAdapter.AddFragment(new FragmentFavorites(),"Favorites");
+        viewPagerAdapter.AddFragment(new FragmentMain(), "Main");
+        viewPagerAdapter.AddFragment(new FragmentFavorites(), "Favorites");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
 
 
         toolbar = findViewById(R.id.main_toolbar);
@@ -98,121 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-    }
-
-    private void filter(String text, String classe_filter) {
-        ArrayList<Cards> filteredList = new ArrayList<>();
-
-        for (Cards card : listCards) {
-            if (card.getName().toLowerCase().contains(text.toLowerCase())) {  //|| card.getClasse().toLowerCase().contains(text.toLowerCase()
-
-                if (classe_filter.contains("NO_FILTER")) {
-                    filteredList.add(card);
-                } else if (card.getClasse().contains(classe_filter)) {
-                    filteredList.add(card);
-                }
-            }
-        }
-        setuprecyclerview(filteredList);
-    }
-
-
-    private void jsonrequest() {
-
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        Cards card = new Cards();
-                        card.setName(jsonObject.getString("name"));
-                        card.setArtist(jsonObject.getString("artist"));
-                        card.setFlavor(jsonObject.getString("flavor"));
-                        card.setId(jsonObject.getString("id"));
-                        card.setClasse(jsonObject.getString("cardClass"));
-                        listCards.add(card);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                setuprecyclerview(listCards);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
-                try {
-                    Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
-                    if (cacheEntry == null) {
-                        cacheEntry = new Cache.Entry();
-                    }
-                    final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
-                    final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
-                    long now = System.currentTimeMillis();
-                    final long softExpire = now + cacheHitButRefreshed;
-                    final long ttl = now + cacheExpired;
-                    cacheEntry.data = response.data;
-                    cacheEntry.softTtl = softExpire;
-                    cacheEntry.ttl = ttl;
-                    String headerValue;
-                    headerValue = response.headers.get("Date");
-                    if (headerValue != null) {
-                        cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                    }
-                    headerValue = response.headers.get("Last-Modified");
-                    if (headerValue != null) {
-                        cacheEntry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                    }
-                    cacheEntry.responseHeaders = response.headers;
-                    final String jsonString = new String(response.data,
-                            HttpHeaderParser.parseCharset(response.headers, "UTF-8"));
-                    return Response.success(new JSONArray(jsonString), cacheEntry);
-                } catch (UnsupportedEncodingException | JSONException e) {
-                    return Response.error(new ParseError(e));
-                }
-            }
-
-            @Override
-            protected void deliverResponse(JSONArray response) {
-                super.deliverResponse(response);
-            }
-
-            @Override
-            public void deliverError(VolleyError error) {
-                super.deliverError(error);
-            }
-
-            @Override
-            protected VolleyError parseNetworkError(VolleyError volleyError) {
-                return super.parseNetworkError(volleyError);
-            }
-        };
-
-
-        requestQueue = Volley.newRequestQueue(MainActivity.this);
-        requestQueue.add(request);
-
-
-    }
-
-    private void setuprecyclerview(List<Cards> listCards) {
-
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, listCards);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerViewAdapter);
 
     }
 
@@ -247,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filter(newText, filter);
+
+                mFragment.filter(newText, filter);
                 return false;
             }
         });
@@ -304,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             filter = newFilter;
             menuItem.setChecked(true);
         }
-        filter("", filter);
+        mFragment.filter("", filter);
 
         return true;
     }

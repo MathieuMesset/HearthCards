@@ -21,11 +21,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+
         return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
+
         return fragmentListTitles.size();
     }
 
@@ -35,7 +37,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return fragmentListTitles.get(position);
     }
 
-    public void AddFragment(Fragment fragment,String Title){
+    public void AddFragment(Fragment fragment, String Title) {
         fragmentList.add(fragment);
         fragmentListTitles.add(Title);
 
