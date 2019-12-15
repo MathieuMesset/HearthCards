@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,8 +34,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.hearthcards.R;
 import com.example.hearthcards.adapters.RecyclerViewAdapter;
+import com.example.hearthcards.adapters.ViewPagerAdapter;
 import com.example.hearthcards.model.Cards;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Cards> listCards;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
     private String filter;
 
 
@@ -67,11 +75,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView = findViewById(R.id.recycler_view_id);
         jsonrequest();
 
-        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        tabLayout = findViewById(R.id.tabLayout_id);
+        viewPager = findViewById(R.id.viewPager_id);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.AddFragment(new FragmentMain(),"Main");
+        viewPagerAdapter.AddFragment(new FragmentFavorites(),"Favorites");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+
+        toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 

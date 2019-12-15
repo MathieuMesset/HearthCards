@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.MainActivity"
-    tools:openDrawer="start">
+    tools:context=".activities.MainActivity">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -31,12 +30,25 @@
                 android:elevation="4dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                android:id="@+id/tabLayout_id"
+                android:background="@color/colorPrimary"
+                />
+
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+
+
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/viewPager_id">
+
+        </androidx.viewpager.widget.ViewPager>
 
 
         <androidx.recyclerview.widget.RecyclerView
