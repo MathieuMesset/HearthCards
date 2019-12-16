@@ -17,10 +17,11 @@
         android:contentDescription="@string/card_thumbnail" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_margin="4dp"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/card_name"
@@ -40,10 +41,11 @@
                 android:id="@+id/icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/classe"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"/>
+                android:contentDescription="@string/classe" />
+
 
             <TextView
                 android:id="@+id/classe"
@@ -63,6 +65,10 @@
             android:text="@string/flavor_text" />
 
 
+
     </LinearLayout>
+
+
+
 
 </LinearLayout>
