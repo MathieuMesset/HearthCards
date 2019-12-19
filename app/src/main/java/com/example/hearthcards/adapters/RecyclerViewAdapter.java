@@ -20,7 +20,9 @@ import com.example.hearthcards.model.Cards;
 
 import java.util.List;
 
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+
 
     private Context mContext;
     private List<Cards> mData;
@@ -35,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         View view;
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -74,8 +76,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    public int getIcon(String classeName){
-        return mContext.getResources().getIdentifier(classeName.toLowerCase()+"_icon","drawable",mContext.getPackageName());
+    public int getIcon(String classeName) {
+        return mContext.getResources().getIdentifier(classeName.toLowerCase() + "_icon", "drawable", mContext.getPackageName());
 
     }
 
@@ -107,5 +109,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
     }
+
 
 }

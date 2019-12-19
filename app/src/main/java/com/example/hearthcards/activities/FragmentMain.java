@@ -29,7 +29,6 @@ public class FragmentMain extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_fragment, container, false);
-
         recyclerView = view.findViewById(R.id.recycler_view_id);
 
 

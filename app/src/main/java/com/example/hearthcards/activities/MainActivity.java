@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private NavigationView navigationView;
     private String filter;
-    private FragmentMain mFragment;
 
 
     @Override
@@ -73,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = findViewById(R.id.tabLayout_id);
         viewPager = findViewById(R.id.viewPager_id);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.AddFragment(new FragmentMain(), "Main");
-        viewPagerAdapter.AddFragment(new FragmentFavorites(), "Favorites");
+        viewPagerAdapter.AddFragment(new FragmentMain(), "Cards");
+        viewPagerAdapter.AddFragment(new FragmentMaps(), "Maps");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -91,6 +90,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position == 1) {
+                    getSupportActionBar().hide();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                } else {
+                    getSupportActionBar().show();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    getSupportActionBar().hide();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                } else {
+                    getSupportActionBar().show();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
     }
@@ -190,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<Cards> filteredList = new ArrayList<>();
 
         for (Cards card : listCards) {
-            if (card.getName().toLowerCase().contains(text.toLowerCase())) {  //|| card.getClasse().toLowerCase().contains(text.toLowerCase()
+            if (card.getName().toLowerCase().contains(text.toLowerCase())) {
 
                 if (classe_filter.contains("NO_FILTER")) {
                     filteredList.add(card);
